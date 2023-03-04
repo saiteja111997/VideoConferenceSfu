@@ -1,7 +1,8 @@
 # DEV
 
 build-dev:
-	docker build --platform linux/amd64 -t videopion -f containers/images/Dockerfile . && docker build -t turn -f containers/images/Dockerfile.turn .
+	docker build -t videopion -f containers/images/Dockerfile . && docker build -t turn -f containers/images/Dockerfile.turn .
+	# docker build --platform linux/amd64 -t videopion -f containers/images/Dockerfile . && docker build -t turn -f containers/images/Dockerfile.turn .
 
 clean-dev:
 	docker-compose -f containers/composes/dc.dev.yml down

@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"v/internal/server"
+	"video_conference_sfu/internal/server"
 )
 
 func main() {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
-	w "v/pkg/webrtc"
+	w "video_conference_sfu/pkg/webrtc"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"time"
-	"v/pkg/chat"
-	w "v/pkg/webrtc"
+	"video_conference_sfu/pkg/chat"
+	w "video_conference_sfu/pkg/webrtc"
 
 	"crypto/sha256"
 

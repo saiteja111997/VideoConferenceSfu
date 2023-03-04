@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"v/internal/handlers"
-	w "v/pkg/webrtc"
+	"video_conference_sfu/internal/handlers"
+	w "video_conference_sfu/pkg/webrtc"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -32,7 +32,7 @@ func Run() error {
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Use(logger.New())
 	app.Use(cors.New())
-
+ 
 	app.Get("/", handlers.Welcome)
 	app.Get("/room/create", handlers.RoomCreate)
 	app.Get("/room/:uuid", handlers.Room)

@@ -25,7 +25,7 @@ var (
 		ICEServers: []webrtc.ICEServer{
 			{
 
-				URLs: []string{"stun:turn.localhost:3478"},
+				URLs: []string{"stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302"},
 			},
 			{
 

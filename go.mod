@@ -1,6 +1,6 @@
 module video_conference_sfu
 
-go 1.19
+go 1.18
 
 require (
 	github.com/fasthttp/websocket v1.5.1
@@ -10,7 +10,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/pion/rtcp v1.2.10
 	github.com/pion/turn/v2 v2.1.0
-	github.com/pion/webrtc/v3 v3.1.57
+	github.com/pion/webrtc/v3 v3.1.58
 )
 
 require (

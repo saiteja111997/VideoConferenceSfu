@@ -2,7 +2,7 @@
 build-dev:
 	docker build -t videopion -f containers/images/Dockerfile . && docker build -t turn -f containers/images/Dockerfile.turn .
 
-#DEV WITH THRID PARTY TURN SETUP
+#DEV WITH THRID PARTY STUN/TURN SETUP
 build-dev-ex:
 	docker build -t videopion -f containers/images/Dockerfile .
 

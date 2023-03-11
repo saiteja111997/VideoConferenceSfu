@@ -3,7 +3,6 @@ package webrtc
 import (
 	"encoding/json"
 	"log"
-	"os"
 	"sync"
 
 	"github.com/gofiber/websocket/v2"
@@ -11,10 +10,9 @@ import (
 )
 
 func RoomConn(c *websocket.Conn, p *Peers) {
-	var config webrtc.Configuration
-	if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
-		config = turnConfig
-	}
+	var config = turnConfig
+	// if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
+	// }
 	peerConnection, err := webrtc.NewPeerConnection(config)
 	if err != nil {
 		log.Print(err)
@@ -99,6 +97,8 @@ func RoomConn(c *websocket.Conn, p *Peers) {
 	})
 
 	p.SignalPeerConnections()
+
+	//A FOR LOOP TO READ THE INCOMING WEBSOCKET MESSAGES
 	message := &websocketMessage{}
 	for {
 		_, raw, err := c.ReadMessage()

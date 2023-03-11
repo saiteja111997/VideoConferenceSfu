@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	"os"
 	"time"
 	"video_conference_sfu/pkg/chat"
 	w "video_conference_sfu/pkg/webrtc"
@@ -26,10 +25,11 @@ func Room(c *fiber.Ctx) error {
 		return nil
 	}
 
+	// ws := "wss"
 	ws := "ws"
-	if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
-		ws = "wss"
-	}
+	// if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
+	// 	ws = "wss"
+	// }
 
 	uuid, suuid, _ := createOrGetRoom(uuid)
 

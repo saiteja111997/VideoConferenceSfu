@@ -3,14 +3,19 @@ function connectStream() {
 	document.getElementById('chat').style.display = 'flex'
 	let pc = new RTCPeerConnection({
 		iceServers: [{
-				'urls': 'stun:turn.videochat:3478',
-			},
-			{
-				'urls': 'turn:turn.videochat:3478',
-				'username': 'akhil',
-				'credential': 'akhil',
-			}
-		]
+			urls: [ "stun:bn-turn1.xirsys.com" ]
+		 }, {
+			username: "CgQgZ8Dte7JpElEc3XtY4FE5k4hzsSjdbkkI6-mJ_H2Eqmj_kAcuEw_li2a2p2SJAAAAAGQIuqdTYWl0ZWph",
+			credential: "08f797ea-bdd0-11ed-861b-0242ac140004",
+			urls: [
+				"turn:bn-turn1.xirsys.com:80?transport=udp",
+				"turn:bn-turn1.xirsys.com:3478?transport=udp",
+				"turn:bn-turn1.xirsys.com:80?transport=tcp",
+				"turn:bn-turn1.xirsys.com:3478?transport=tcp",
+				"turns:bn-turn1.xirsys.com:443?transport=tcp",
+				"turns:bn-turn1.xirsys.com:5349?transport=tcp"
+			]
+		 }]
 	})
 
 	pc.ontrack = function (event) {

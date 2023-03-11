@@ -24,16 +24,19 @@ var (
 		ICETransportPolicy: webrtc.ICETransportPolicyRelay,
 		ICEServers: []webrtc.ICEServer{
 			{
-
-				URLs: []string{"stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302"},
+				URLs: []string{"stun:bn-turn1.xirsys.com"},
 			},
 			{
+				URLs: []string{"turn:bn-turn1.xirsys.com:80?transport=udp",
+					"turn:bn-turn1.xirsys.com:3478?transport=udp",
+					"turn:bn-turn1.xirsys.com:80?transport=tcp",
+					"turn:bn-turn1.xirsys.com:3478?transport=tcp",
+					"turns:bn-turn1.xirsys.com:443?transport=tcp",
+					"turns:bn-turn1.xirsys.com:5349?transport=tcp"},
 
-				URLs: []string{"turn:turn.localhost:3478"},
+				Username: "jcuvNqhQdQWR1JbE6LdovEENejXg0c-zQWXWtOXd8KFaJfOEJz9S8Lb1LcMpz2coAAAAAGQMmg5TYWl0ZWph",
 
-				Username: "akhil",
-
-				Credential:     "sharma",
+				Credential:     "f4b03976-c01e-11ed-9240-0242ac140004",
 				CredentialType: webrtc.ICECredentialTypePassword,
 			},
 		},

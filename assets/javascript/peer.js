@@ -59,10 +59,22 @@ function connect(stream) {
 	// })
 
 	let pc = new RTCPeerConnection({
-		iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+		iceServers: [{
+			 'urls': [ "stun:bn-turn1.xirsys.com" ]},
+			  {
+				    'username': "jcuvNqhQdQWR1JbE6LdovEENejXg0c-zQWXWtOXd8KFaJfOEJz9S8Lb1LcMpz2coAAAAAGQMmg5TYWl0ZWph",
+				    'credential': "f4b03976-c01e-11ed-9240-0242ac140004",
+				    'urls': 
+					[ 
+					    "turn:bn-turn1.xirsys.com:80?transport=udp",
+						"turn:bn-turn1.xirsys.com:3478?transport=udp",
+						"turn:bn-turn1.xirsys.com:80?transport=tcp",
+						"turn:bn-turn1.xirsys.com:3478?transport=tcp",
+						"turns:bn-turn1.xirsys.com:443?transport=tcp",
+						"turns:bn-turn1.xirsys.com:5349?transport=tcp"
+				]
+				}]
 	})
-
-	
 
 	//APPENDING THE VIDEO AS SOON AS A TRACK IS RECEIVED FROM A PEER
 	pc.ontrack = function (event) {
@@ -117,6 +129,7 @@ function connect(stream) {
 		console.log('error: ', event)
 	})
 
+	
 	ws.onclose = function (evt) {
 		console.log("websocket has closed")
 		pc.close();

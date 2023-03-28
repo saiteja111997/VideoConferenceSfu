@@ -46,41 +46,44 @@ function connect(stream) {
 	document.getElementById('peers').style.display = 'block'
 	document.getElementById('chat').style.display = 'flex'
 	document.getElementById('noperm').style.display = 'none'
-	// let pc = new RTCPeerConnection({
-	// 	iceServers: [{
-	// 			'urls': 'stun:turn.videochat:3478',
-	// 		},
-	// 		{
-	// 			'urls': 'turn:turn.videochat:3478',
-	// 			'username': 'akhil',
-	// 			'credential': 'akhil',
-	// 		}
-	// 	]
-	// })
-
 	let pc = new RTCPeerConnection({
 		iceServers: [{
-			 'urls': [ "stun:bn-turn1.xirsys.com" ]},
-			  {
-				    'username': "jcuvNqhQdQWR1JbE6LdovEENejXg0c-zQWXWtOXd8KFaJfOEJz9S8Lb1LcMpz2coAAAAAGQMmg5TYWl0ZWph",
-				    'credential': "f4b03976-c01e-11ed-9240-0242ac140004",
-				    'urls': 
-					[ 
-					    "turn:bn-turn1.xirsys.com:80?transport=udp",
-						"turn:bn-turn1.xirsys.com:3478?transport=udp",
-						"turn:bn-turn1.xirsys.com:80?transport=tcp",
-						"turn:bn-turn1.xirsys.com:3478?transport=tcp",
-						"turns:bn-turn1.xirsys.com:443?transport=tcp",
-						"turns:bn-turn1.xirsys.com:5349?transport=tcp"
-				]
-				}]
+				'urls': 'stun:turn.videochat:3478',
+			},
+			{
+				'urls': 'turn:turn.videochat:3478',
+				'username': 'akhil',
+				'credential': 'akhil',
+			}
+		]
 	})
+
+	// let pc = new RTCPeerConnection({
+	// 	iceServers: [{
+	// 		 'urls': [ "stun:bn-turn1.xirsys.com" ]},
+	// 		  {
+	// 			    'username': "jcuvNqhQdQWR1JbE6LdovEENejXg0c-zQWXWtOXd8KFaJfOEJz9S8Lb1LcMpz2coAAAAAGQMmg5TYWl0ZWph",
+	// 			    'credential': "f4b03976-c01e-11ed-9240-0242ac140004",
+	// 			    'urls': 
+	// 				[ 
+	// 				    "turn:bn-turn1.xirsys.com:80?transport=udp",
+	// 					"turn:bn-turn1.xirsys.com:3478?transport=udp",
+	// 					"turn:bn-turn1.xirsys.com:80?transport=tcp",
+	// 					"turn:bn-turn1.xirsys.com:3478?transport=tcp",
+	// 					"turns:bn-turn1.xirsys.com:443?transport=tcp",
+	// 					"turns:bn-turn1.xirsys.com:5349?transport=tcp"
+	// 			]
+	// 			}]
+	// })
 
 	//APPENDING THE VIDEO AS SOON AS A TRACK IS RECEIVED FROM A PEER
 	pc.ontrack = function (event) {
 		if (event.track.kind === 'audio') {
+			console.log("Only audio found, so returning!!")
 			return
 		}
+
+		console.log("Got video on track!!")
 
 		col = document.createElement("div")
 		col.className = "column is-6 peer"
@@ -113,11 +116,15 @@ function connect(stream) {
 
 	stream.getTracks().forEach(track => pc.addTrack(track, stream))
 
+	console.log("Web socket address is : ",RoomWebsocketAddr)
 	let ws = new WebSocket(RoomWebsocketAddr)
+	
 	pc.onicecandidate = e => {
 		if (!e.candidate) {
 			return
 		}
+
+		console.log("Printing the candidate : ", e.candidate);
 
 		ws.send(JSON.stringify({
 			event: 'candidate',
@@ -146,7 +153,10 @@ function connect(stream) {
 	}
 
 	ws.onmessage = function (evt) {
-		let msg = JSON.parse(evt.data)
+		let msg = JSON.parse(evt.data);
+
+        console.log("Printing message : ", msg);
+
 		if (!msg) {
 			return console.log('failed to parse msg')
 		}
@@ -154,6 +164,7 @@ function connect(stream) {
 		switch (msg.event) {
 			case 'offer':
 				let offer = JSON.parse(msg.data)
+				console.log("The message has an offer!!")
 				if (!offer) {
 					return console.log('failed to parse answer')
 				}
@@ -169,6 +180,7 @@ function connect(stream) {
 
 			case 'candidate':
 				let candidate = JSON.parse(msg.data)
+				console.log("The message has a candidate!!")
 				if (!candidate) {
 					return console.log('failed to parse candidate')
 				}

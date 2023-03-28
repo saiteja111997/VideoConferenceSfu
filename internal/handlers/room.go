@@ -25,8 +25,8 @@ func Room(c *fiber.Ctx) error {
 		return nil
 	}
 
-	ws := "wss"
-	// ws := "ws"
+	// ws := "wss"
+	ws := "ws"
 	// if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
 	// 	ws = "wss"
 	// }
@@ -46,6 +46,7 @@ func Room(c *fiber.Ctx) error {
 
 func RoomWebsocket(c *websocket.Conn) {
 	uuid := c.Params("uuid")
+	fmt.Println("Printing uuid : ", uuid)
 	if uuid == "" {
 		return
 	}
@@ -58,6 +59,8 @@ func RoomWebsocket(c *websocket.Conn) {
 func createOrGetRoom(uuid string) (string, string, *w.Room) {
 	w.RoomsLock.Lock()
 	defer w.RoomsLock.Unlock()
+
+	fmt.Println("Creating room!!")
 
 	//CREATING A SHA HASH OF THE UUID
 	h := sha256.New()

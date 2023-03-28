@@ -50,6 +50,7 @@ document.getElementById("form").onsubmit = function () {
 };
 
 function connectChat() {
+    console.log("Chat websocket address!!")
     chatWs = new WebSocket(ChatWebsocketAddr)
 
     chatWs.onclose = function (evt) {

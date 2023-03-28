@@ -2,6 +2,7 @@ package webrtc
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"sync"
 
@@ -10,8 +11,9 @@ import (
 )
 
 func RoomConn(c *websocket.Conn, p *Peers) {
-	var config = turnConfig
+	var config webrtc.Configuration
 	// if os.Getenv("ENVIRONMENT") == "PRODUCTION" {
+	// 	var config = turnConfig
 	// }
 	peerConnection, err := webrtc.NewPeerConnection(config)
 	if err != nil {
@@ -96,6 +98,7 @@ func RoomConn(c *websocket.Conn, p *Peers) {
 		}
 	})
 
+	//THIS PIECE OF CODE IS TO SIGNAL ALL THE EXISTING PEERS IN THE ROOM
 	p.SignalPeerConnections()
 
 	//A FOR LOOP TO READ THE INCOMING WEBSOCKET MESSAGES
@@ -118,6 +121,8 @@ func RoomConn(c *websocket.Conn, p *Peers) {
 				return
 			}
 
+			fmt.Println("Adding ice candidate!!")
+
 			if err := peerConnection.AddICECandidate(candidate); err != nil {
 				log.Println(err)
 				return
@@ -128,6 +133,8 @@ func RoomConn(c *websocket.Conn, p *Peers) {
 				log.Println(err)
 				return
 			}
+
+			fmt.Println("Received answer!!")
 
 			if err := peerConnection.SetRemoteDescription(answer); err != nil {
 				log.Println(err)
